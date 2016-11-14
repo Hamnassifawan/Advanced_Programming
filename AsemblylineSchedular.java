@@ -22,15 +22,17 @@ public class AsemblylineSchedular {
         T2[0] = e[1] + a[1][0]; // time taken to leave first station in line 2
         T3[0] = e[2] + a[2][0]; // time taken to leave first station in line 3
 
-        // Fill tables T1[] and T2[] using the above given recursive relations
+
         for (int i = 1; i < NUM_STATION; ++i) {
             T1[i] = min3(T1[i - 1] + a[0][i], T2[i - 1] + t[1][i] + a[0][i],T3[i-1]+a[2][i]+t[4][i]);
             T2[i] = min3((T2[i - 1] + a[1][i]), (T1[i - 1] + t[0][i] + a[1][i]), (T3[i - 1] + a[1][i] + t[3][i]));
             T3[i] = min3(T3[i - 1] + a[2][i], T2[i - 1] + t[2][i] + a[2][i],t[5][i]+T1[i-1]+a[0][i]);
-
+              System.out.println("Station-> "+i+" Lane1->"+T1[i]);
+            System.out.println("Station-> "+i+" Lane2-> "+T2[i]);
+            System.out.println("Station-> "+i+" Lane3-> "+T3[i]);
         }
+            System.out.println("At End:"+min3(T1[NUM_STATION - 1] + x[0], T2[NUM_STATION - 1] + x[1],T3[NUM_STATION - 1] + x[2]));
 
-        // Consider exit times and retutn minimum
         return min3(T1[NUM_STATION - 1] + x[0], T2[NUM_STATION - 1] + x[1],T3[NUM_STATION - 1] + x[2]);
     }
 
